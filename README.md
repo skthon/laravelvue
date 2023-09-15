@@ -1,6 +1,10 @@
 # Task Management application using local database or redmine for storage tasks
 - PR: https://github.com/skthon/laravelvue/pull/3
-- Demo: 
+- Demo: https://drive.google.com/file/d/1gRXppUDcW-YVwQghuO2tsgKGHfPucmD6/view?usp=sharing
+- Screenshots
+<img width="1503" alt="Screenshot 2023-09-15 at 10 38 05 PM" src="https://github.com/skthon/laravelvue/assets/16775059/aae79bac-e1c1-4e47-815a-f7a20be63fac">
+<img width="1090" alt="Screenshot 2023-09-15 at 10 12 00 PM" src="https://github.com/skthon/laravelvue/assets/16775059/80cadbb8-5de9-4711-9c37-0db5f2469a78">
+
 
 # Table of Contents
 - [Requirements and Installation](#requirements-and-installation)
