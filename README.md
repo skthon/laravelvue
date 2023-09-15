@@ -1,8 +1,6 @@
 # Task Management application using local database or redmine for storage tasks
 - PR: https://github.com/skthon/laravelvue/pull/3
-- Demos
-    -
-    - 
+- Demo: 
 
 # Table of Contents
 - [Requirements and Installation](#requirements-and-installation)
@@ -32,37 +30,50 @@ docker exec -it bloomex bash
 composer install
 php artisan key:generate
 
+# install package dependencies
+npm install
+npm run build
+```
+
+
+- Go to redmine application, login with below credentials and add default configuration data
+    - username: admin, password: admin
+- Navigate to administration page, Below message will be shown and load the default configuration
+- Navigate to http://localhost:8080/projects and click on New Project button on right side
+- Create a new project named 'bloomex' and once created you should be able to create new issue when navigated to the project
+- Now we need to save these two fields to configure in the application
+```
+# Get the project id which can be fetched when navigated to the bloomex project
+REDMINE_PROJECT_ID=1
+ 
+# Go to http://localhost:8080/settings?tab=api page and enable REST API web service
+
+# Now go to http://localhost:8080/my/account and on right side we should be able to see an access key
+REDMINE_API_KEY=d4f6fd2e2666b76b14da846af16b2b6c09f5ea37
+
+# Back to the web application
+docker exec -it bloomex bash
+
+# Run the migrations for tasks table
+php artisan migrate
+
 # Copy the environment file
 cp .env.example .env
 
-# Edit the .env file to toggle between storages
+# update the .env file
 TASK_STORAGE=redmine
 #TASK_STORAGE=local
 REDMINE_URL=http://host.docker.internal:8080
-REDMINE_API_KEY=f294b9b5ef87f984889dd4185c8b40a357e05f8d
-REDMINE_PROJECT_ID=3
+REDMINE_API_KEY=d4f6fd2e2666b76b14da846af16b2b6c09f5ea37
+REDMINE_PROJECT_ID=1
 
-# clear the cache and run the migrations
+# To clear the cache
 php artisan config:clear
-php artisan migrate
-
-# Run the tests
-php artisan test
 ```
+
+- Navigate to http://localhost:8000 and you can start creating tasks, delete tasks and viewing them.
+- To toggle between local database and redmine as storage, navigate to .env and update `TASK_STORAGE`
 
 # Tests
-$ php artisan test
-```
-```
 
 # Known Issues
-
-
-Update admin account
-Setup default configuration
-
-Create a project with an identifier
-
-setup api key
-Enable REST API in Administration -> Settings -> API. Then, authentication can be done in 2 different ways:
-passed in as a "X-Redmine-API-Key" HTTP header (added in Redmine 1.1.0)
