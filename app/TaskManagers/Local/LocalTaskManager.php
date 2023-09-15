@@ -50,7 +50,7 @@ class LocalTaskManager extends TaskManager
 
     public function listTasks(): ResourceCollection
     {
-        return TaskResource::collection(Task::all());
+        return TaskResource::collection(Task::orderBy('id', 'desc')->get());
     }
 
     public function getTask(int $taskId): TaskResource
