@@ -79,5 +79,41 @@ php artisan config:clear
 - To toggle between local database and redmine as storage, navigate to .env and update `TASK_STORAGE`
 
 # Tests
+```
+# create testing environment
+docker exec app -it bash
+
+# copy the env file
+cp .env .env.testing
+
+# modify the database
+DB_DATABASE=bloomex_test
+
+# Clear the config and Run the test database migrations
+php artisan config:clear
+php artisan migrate --env=testing
+
+# Now run the tests
+php artisan test
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true
+
+   PASS  Tests\Unit\TaskManagers\LocalTaskManagerTest
+  ✓ create task
+  ✓ update task
+  ✓ delete task
+  ✓ list tasks
+  ✓ get task
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ the application returns a successful response
+
+  Tests:  7 passed
+  Time:   0.70s
+```
 
 # Known Issues
+
+- Pending unit tests for RedmineTaskManager class
+- UI mobile view shows a scrollable bar
+- Currently the frontend doesn't have update task action, viewing the task, create form doesn't have start data and due date inputs.
