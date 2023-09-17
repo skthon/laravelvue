@@ -32,7 +32,6 @@ yarn.lock
 .phpunit.result.cache
 compiled.php
 config.php
-docker-compose.yml
 down
 events.scanned.php
 maintenance.php

@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+    app:
+        build:
+            context: .
+        container_name: bloomex
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www/html
+        networks:
+            - bloomex
+
+    redmine:
+        image: redmine
+        restart: always
+        container_name: redmine
+        ports:
+            - 8080:3000
+        environment:
+            REDMINE_DB_MYSQL: db
+            REDMINE_DB_PASSWORD: root
+            REDMINE_SECRET_KEY_BASE: supersecretkey
+        networks:
+            - bloomex
+
+    db:
+        image: mysql:8
+        ports:
+            - "3306:3306"
+        container_name: bloomex-mysql
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./docker:/docker-entrypoint-initdb.d
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: redmine
+        networks:
+            - bloomex
+
+volumes:
+    mysql_data:
+
+networks:
+    bloomex:
+        driver: bridge
